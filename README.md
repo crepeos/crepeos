@@ -11,10 +11,19 @@ called Yotta and runs really nicley and it better than the default one.
 
 ## How to get CrepeOS
 
-First you need the right software
+First you need the right software:
 
 ```
-Debian based distros :  sudo apt install -y nasm git qemu*
-Arch based distros :  sudo pacman -S --no-confirm nasm git qemu*
+Debian based distros :  sudo apt install -y nasm git qemu qemu-system-x86
+Arch based distros :  sudo pacman -S --no-confirm nasm git qemu-system-x86 qemu
+OpenSuse based distros: sudo zypper install nasm git qemu qemu-system-x86
 ```
+
+Then run this:
+```
+git clone https://github.com/crepeos/crepeos.git && cd crepeos/CrepeOS/OS && sudo ./OSStart.sh
+```
+
+## The source code
+You may edit the source code and make a fork of this OS. The software source code and bin files are seperate.
 
