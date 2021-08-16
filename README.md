@@ -1,6 +1,6 @@
-# CrepeOS
+![crepeOSlogo-gen1](https://user-images.githubusercontent.com/88938279/129524188-25f74833-8bef-4c6e-816e-bcbf1c145822.png)
 
-![Screenshot_2021-08-14_16-02-23](https://user-images.githubusercontent.com/88938279/129450566-7763101f-4602-475a-acfe-e63c735fd810.png)
+# CrepeOS
 
 ## About
 CrepeOS is an Operating System based on MikeOS. It is a interesting OS and comes with some default apps. 
@@ -27,3 +27,5 @@ git clone https://github.com/crepeos/crepeos.git && cd crepeos/CrepeOS/OS && sud
 ## The source code
 You may edit the source code and make a fork of this OS. The software source code and bin files are seperate.
 
+# Screenshots
+![Screenshot_2021-08-14_16-02-23](https://user-images.githubusercontent.com/88938279/129450566-7763101f-4602-475a-acfe-e63c735fd810.png)
