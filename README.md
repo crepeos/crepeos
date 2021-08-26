@@ -14,9 +14,9 @@ called Yotta and runs really nicley and it better than the default one.
 First you need the right software:
 
 ```
-Debian based distros :  sudo apt install -y nasm git qemu qemu-system-x86
-Arch based distros :  sudo pacman -S --noconfirm nasm git qemu
-OpenSuse based distros: sudo zypper install nasm git qemu qemu-system-x86
+Debian based distros :  sudo apt install -y nasm git qemu qemu-system-x86 genisoimage
+Arch based distros :  sudo pacman -S --noconfirm nasm git qemu genisoimage
+OpenSuse based distros: sudo zypper install nasm git qemu qemu-system-x86 genisoimage
 ```
 
 Then run this:
