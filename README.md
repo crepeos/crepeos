@@ -15,7 +15,7 @@ First you need the right software:
 
 ```
 Debian based distros :  sudo apt install -y nasm git qemu qemu-system-x86 genisoimage
-Arch based distros :  sudo pacman -S --noconfirm nasm git qemu genisoimage
+Arch based distros :  sudo pacman -S --noconfirm nasm git qemu cdrtools
 OpenSuse based distros: sudo zypper install nasm git qemu qemu-system-x86 genisoimage
 ```
 
