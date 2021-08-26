@@ -28,4 +28,5 @@ git clone https://github.com/crepeos/crepeos.git && cd crepeos/CrepeOS/OS && sud
 You may edit the source code and make a fork of this OS. The software source code and bin files are seperate.
 
 # Screenshots
-![Screenshot_2021-08-14_16-02-23](https://user-images.githubusercontent.com/88938279/129450566-7763101f-4602-475a-acfe-e63c735fd810.png)
+![Screenshot from 2021-08-26 20 58 42](https://user-images.githubusercontent.com/76793908/131035224-f44076b7-9d6b-4b8e-9c77-bb7e4ce4c8f6.png)
+![Screenshot from 2021-08-26 20 59 01](https://user-images.githubusercontent.com/76793908/131035235-5f155bd9-b015-4bd5-b171-e74cb491b080.png)
