@@ -15,7 +15,7 @@ First you need the right software:
 
 ```
 Debian based distros :  sudo apt install -y nasm git qemu qemu-system-x86
-Arch based distros :  sudo pacman -S --no-confirm nasm git qemu
+Arch based distros :  sudo pacman -S --noconfirm nasm git qemu
 OpenSuse based distros: sudo zypper install nasm git qemu qemu-system-x86
 ```
 
