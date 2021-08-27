@@ -6,7 +6,7 @@ if test "`whoami`" != "root" ; then
 	exit
 fi
 
-echo "Welcome to the CrepeOS Alpha 0.3 builder."
+echo "Welcome to the CrepeOS Alpha 0.3.1 builder."
 
 cd OS
 
@@ -24,7 +24,7 @@ fi
 echo "Assembling bootloader"
 
 nasm -O0 -w+orphan-labels -f bin -o system/osldr/osldr.bin system/osldr/osldr.asm || exit
-
+nasm -O0 -w+orphan-labels -f bin -o system/osldr/osclose.bin system/osldr/osclose.asm || exit
 
 echo "Assembling kernel"
 
