@@ -3,10 +3,10 @@
 # CrepeOS
 
 ## About
-CrepeOS is an Operating System based on MikeOS. It is a interesting OS and comes with some default apps. 
-It comes with a BASIC Interpriter and a BASIC Library. It also comes with games.
+CrepeOS is an Operating System based on MikeOS. It is an interesting OS and comes with some default apps. 
+It comes with a BASIC Interpreter and a BASIC Library. It also comes with games.
 The games are Cosmic Flight, 2048 and Snake in the future. It has a nano-like editor
-called Yotta and runs really nicley and it better than the default one.
+called Yotta and runs really nicely, and it is better than the default one.
 
 
 ## How to get CrepeOS
