@@ -3,11 +3,13 @@
 # CrepeOS
 
 ## About
-CrepeOS is an Operating System based on MikeOS. It is an OS designed to be different, while remaining fast and light. 
-CrepeOS comes with some default apps. 
-It comes with a BASIC Interpreter and a BASIC Library. It also comes with games.
-The games are Cosmic Flight, 2048 and Snake in the future. It has a nano-like editor
-called Yotta and runs really nicely, and it is better than the default one.
+CrepeOS is an Operating System based on MikeOS. It is an OS designed to be
+different, while remaining fast and light. 
+CrepeOS comes with some default apps,
+a BASIC Interpreter and a BASIC Library.
+There are games built in such as Cosmic Flight, 
+2048, and Hangman. It has a built-in file explorer
+and text editor.
 
 
 ## How to get CrepeOS
@@ -26,12 +28,12 @@ git clone https://github.com/crepeos/crepeos.git && cd crepeos/CrepeOS/OS && sud
 ```
 
 ## The source code
-You may edit the source code and make a fork of this OS. The software source code and bin files are seperate.
+You may edit the source code and make a fork of this OS. The software source code and bin files are separate.
 
 # Screenshots
 Note there will be new screenshots coming soon. 
 This is no longer the look of the latest update, however this is CrepeOS v0.3 
-and you may still download that version if you desire.
+and you may still download that version (from the old repo) if you desire.
 
 ![Screenshot from 2021-08-26 20 58 42](https://user-images.githubusercontent.com/76793908/131035224-f44076b7-9d6b-4b8e-9c77-bb7e4ce4c8f6.png)
 ![Screenshot from 2021-08-26 20 59 01](https://user-images.githubusercontent.com/76793908/131035235-5f155bd9-b015-4bd5-b171-e74cb491b080.png)
