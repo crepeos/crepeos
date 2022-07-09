@@ -2,7 +2,7 @@
 
 	BITS 16
 
-	%DEFINE CREPEOS_VER '0.3.1 Alpha'	; OS version number
+	%DEFINE CREPEOS_VER '0.5.3 Alpha'	; OS version number
 	%DEFINE CREPEOS_API_VER 17	; API version for programs to check
 
 
@@ -94,8 +94,6 @@ os_call_vectors:
 ; START OF MAIN KERNEL CODE
 
 os_main:
-	call os_clear_screen
-
 	cli				; Clear interrupts
 	mov ax, 0
 	mov ss, ax			; Set stack segment and pointer
@@ -163,17 +161,18 @@ no_autorun_bin:
 	; Now we display a dialog box offering the user a choice of
 	; a menu-driven program selector, or a command-line interface
 
-
 option_screen:
-	call os_clear_screen
-
-	mov bl, 00000000b		; White on red
+	mov bl, 10011111b		; White on red
 	mov dl, 20			; Start X position
 	mov dh, 2			; Start Y position
 	mov si, 40			; Width
 	mov di, 23			; Finish Y position
 	call os_draw_block		; Draw option selector window
-	
+	mov ax, os_init_msg		; Set up the welcome screen
+	mov bx, os_version_msg
+	mov cx, 10011001b		; Colour: black and white 
+	call os_draw_background
+
 	mov ax, dialog_string_1		; Ask if user wants app selector or command-line
 	mov bx, dialog_string_2
 	mov cx, dialog_string_3
@@ -188,68 +187,34 @@ option_screen:
 
 	jmp option_screen		; Offer menu/CLI choice after CLI has exited
 
+
+	; Data for the above code...
+    
+   	; Time
+	;print_time:
+	;	mov bx, tmp_string
+	;	call os_get_time_string
+	;	mov si, bx
+	;	call os_print_string
+	;	call os_print_newline
+	;	call os_print_newline
+
     
 	
-	os_init_msg	    	db '| CrepeOS System |--------------------------------------| Version ', CREPEOS_VER, ' |', 0
-	os_version_msg		db ' Press any key to run the App Menu. ', 0
+	os_init_msg	    	db '| CrepeOS System |----------------------------------------| Version ', CREPEOS_VER, ' |', 0
+	os_version_msg		db '                      ', 0
 
 	dialog_string_1		db '<< CrepeOS System Menu >>=============|', 0
 	dialog_string_2		db '                                         ', 0
-	dialog_string_3		db ' OK to got to GUI or cancel to Terminal.', 0
+	dialog_string_3		db ' OK to go to GUI or Cancel to Terminal.', 0
+
 
 
 app_selector:
-	
-	call os_clear_screen
-	mov ax, os_init_msg		
+	mov ax, os_init_msg		; Draw main screen layout
 	mov bx, os_version_msg
-	mov cx, 10011111b		
+	mov cx, 10010111b		; Colour: black and white
 	call os_draw_background
-	
-	mov cx, 10011111b		
-	call os_draw_background	
-	
-	;;;;;;;;;;;;
-	;; Sun ;;
-	;;;;;;;;;;;;
-	mov bl, 11101110b		
-	mov dl, 0		; X
-	mov dh, 1		; Y	
-	mov si, 10		; Width	
-	mov di, 7		; End of Y	
-	call os_draw_block
-	
-	;;;;;;;;;;;;;;;
-	;; Grass ;;
-	;;;;;;;;;;;;;;;
-	
-	mov bl, 00100010b		
-	mov dl, 0		
-	mov dh, 19			
-	mov si, 80			
-	mov di, 24			
-	call os_draw_block
-	
-	;;;;;;;;;;;;;
-	;; Tree ;;
-	;;;;;;;;;;;;;
-	
-	mov bl, 01100110b		
-	mov dl, 60		
-	mov dh, 11			
-	mov si, 4			
-	mov di, 20	
-	call os_draw_block
-	
-	mov bl, 00100010b		
-	mov dl, 55		
-	mov dh, 7			
-	mov si, 15			
-	mov di, 13	
-	call os_draw_block
-
-	
-	call os_wait_for_key
 
 	call os_file_selector		; Get user to select a file, and store
 					; the resulting string location in AX
@@ -290,7 +255,6 @@ app_selector:
 	mov ax, si
 	mov cx, 32768			; Where to load the program file
 	call os_load_file		; Load filename pointed to by AX
-
 
 
 execute_bin_program:
@@ -417,6 +381,5 @@ not_bas_extension:
 	%INCLUDE "drivers/sound.asm"
 	%INCLUDE "drivers/string.asm"
 	%INCLUDE "drivers/basic.asm"
-	%INCLUDE "drivers/power.asm"
 
 

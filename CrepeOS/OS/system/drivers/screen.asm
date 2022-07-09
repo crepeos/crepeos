@@ -1,3 +1,9 @@
+
+; ------------------------------------------------------------------
+; os_print_string -- Displays text
+; IN: SI = message location (zero-terminated string)
+; OUT: Nothing (registers preserved)
+
 os_print_string:
 	pusha
 
@@ -233,8 +239,8 @@ os_file_selector:
 
 	.buffer		times 1024 db 0
 
-	.help_msg1	db '                                     ', 0
-	.help_msg2	db ' ', 0
+	.help_msg1	db '<< Launcher >>=======================|', 0
+	.help_msg2  db '                                      ', 0
 
 	.filename	times 13 db 0
 
@@ -273,10 +279,10 @@ os_list_dialog:
 
 
 	mov bl, 10001111b		; White on red
-	mov dl, 0			; Start X position
-	mov dh, 1			; Start Y position
-	mov si, 25			; Width
-	mov di, 20		; Finish Y position
+	mov dl, 20			; Start X position
+	mov dh, 2			; Start Y position
+	mov si, 40			; Width
+	mov di, 23			; Finish Y position
 	call os_draw_block		; Draw option selector window
 
 	mov dl, 21			; Show first line of help text...
@@ -302,18 +308,18 @@ os_list_dialog:
 
 	mov byte [.skip_num], 0		; Not skipping any lines at first showing
 
-	mov dl, 3			; Set up starting position for selector
-	mov dh, 4
+	mov dl, 25			; Set up starting position for selector
+	mov dh, 7
 
 	call os_move_cursor
 
 .more_select:
 	pusha
 	mov bl, 01111111b		; Black on white for option list box
-	mov dl, 1
-	mov dh, 2
-	mov si, 23
-	mov di, 19
+	mov dl, 21
+	mov dh, 6
+	mov si, 38
+	mov di, 22
 	call os_draw_block
 	popa
 
@@ -336,7 +342,7 @@ os_list_dialog:
 
 
 .go_up:
-	cmp dh, 3			; Already at top?
+	cmp dh, 7			; Already at top?
 	jle .hit_top
 
 	call .draw_white_bar
@@ -349,7 +355,7 @@ os_list_dialog:
 
 
 .go_down:				; Already at bottom of list?
-	cmp dh, 14
+	cmp dh, 20
 	je .hit_bottom
 
 	mov cx, 0
@@ -380,6 +386,9 @@ os_list_dialog:
 	dec byte [.skip_num]		; If so, decrement lines to skip
 	jmp .more_select
 
+	mov cx, 00011111b		; Colour: black and white 
+	call os_draw_background
+
 
 .hit_bottom:				; See if there's more to scroll
 	mov cx, 0
@@ -395,13 +404,15 @@ os_list_dialog:
 
 	inc byte [.skip_num]		; If so, increment lines to skip
 	jmp .more_select
-
+	
+	mov cx, 00011111b		; Colour: black and white 
+	call os_draw_background
 
 
 .option_selected:
 	call os_show_cursor
 
-	sub dh, 4
+	sub dh, 7
 
 	mov ax, 0
 	mov al, dh
@@ -423,15 +434,15 @@ os_list_dialog:
 	call os_show_cursor
 	popa
 	stc				; Set carry for Esc
-	jmp app_selector
+	ret
 
 
 
 .draw_list:
 	pusha
 
-	mov dl, 4			; Get into position for option list text
-	mov dh, 4
+	mov dl, 23			; Get into position for option list text
+	mov dh, 7
 	call os_move_cursor
 
 
@@ -467,7 +478,7 @@ os_list_dialog:
 	jmp .more
 
 .newline:
-	mov dl, 4			; Go back to starting X position
+	mov dl, 23			; Go back to starting X position
 	inc dh				; But jump down a line
 	call os_move_cursor
 
@@ -486,12 +497,12 @@ os_list_dialog:
 .draw_black_bar:
 	pusha
 
-	mov dl, 3
+	mov dl, 22
 	call os_move_cursor
 
 	mov ah, 09h			; Draw white bar at top
 	mov bh, 0
-	mov cx, 19
+	mov cx, 36
 	mov bl, 00001111b		; White text on black background
 	mov al, ' '
 	int 10h
@@ -504,12 +515,12 @@ os_list_dialog:
 .draw_white_bar:
 	pusha
 
-	mov dl, 3
+	mov dl, 22
 	call os_move_cursor
 
 	mov ah, 09h			; Draw white bar at top
 	mov bh, 0
-	mov cx, 19
+	mov cx, 36
 	mov bl, 11110000b		; Black text on white background
 	mov al, ' '
 	int 10h
@@ -543,7 +554,7 @@ os_draw_background:
 	mov ah, 09h			; Draw white bar at top
 	mov bh, 0
 	mov cx, 80
-	mov bl, 01110000b
+	mov bl, 00001111b
 	mov al, ' '
 	int 10h
 
@@ -565,7 +576,7 @@ os_draw_background:
 	mov ah, 09h			; Draw white bar at bottom
 	mov bh, 0
 	mov cx, 80
-	mov bl, 01110000b
+	mov bl, 00001111b
 	mov al, ' '
 	int 10h
 
@@ -688,7 +699,7 @@ os_input_dialog:
 	mov ah, 09h
 	mov bh, 0
 	mov cx, 55
-	mov bl, 01001111b		; White on red
+	mov bl, 10100000b		; White on red
 	mov al, ' '
 	int 10h
 	popa
@@ -719,8 +730,7 @@ os_input_dialog:
 	call os_input_string
 
 	popa
-	call os_clear_screen
-	call app_selector
+	ret
 
 
 ; ------------------------------------------------------------------
@@ -868,7 +878,7 @@ os_dialog_box:
 	mov si, .ok_button_string
 	call os_print_string
 
-	mov bl, 01001111b		; White on red for cancel button
+	mov bl, 10011111b		; White on red for cancel button
 	mov dh, 14
 	mov dl, 42
 	mov si, 9
@@ -890,7 +900,7 @@ os_dialog_box:
 	jne .noright
 
 
-	mov bl, 01001111b		; Black on white
+	mov bl, 10011111b		; Black on white
 	mov dh, 14
 	mov dl, 27
 	mov si, 8
@@ -939,6 +949,7 @@ os_dialog_box:
 	.cancel_button_noselect	db '    Cancel   ', 0
 
 	.tmp dw 0
+
 
 ; ------------------------------------------------------------------
 ; os_print_space -- Print a space to the screen
@@ -1212,9 +1223,7 @@ os_input_string:
 
 
 	
-	
-	
-	
 
 
 ; ==================================================================
+

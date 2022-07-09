@@ -7,13 +7,15 @@ if test "`whoami`" != "root" ; then
 	exit
 fi
 
-echo "Welcome to the CrepeOS Alpha 0.3.1 builder."
+echo "Welcome to the CrepeOS 0.5.1 builder."
+echo "WARNING. If you have data saved on the CrepeOS image, make a copy of the image now. Pressing any key will replace the installation with a fresh new one. If you have the file saved elsewhere, place it into the 'other' folder to include it on your new installation. Please back up any data you would like to keep NOW."
+read -n 1 -s -r -p "Press any key to continue."
 
 cd OS
 
-echo -e "\e[1;34m[building]\e[0m Backing up any existing image files"
-mv image/crepeos.flp image/imgbak/crepeos.flp.bak -f
-mv image/crepeos.iso image/imgbak/crepeos.iso.bak -f
+echo -e "[building] Removing any existing image files"
+rm -rf image/crepeos.flp
+rm -rf image/crepeos.iso
 sleep 0.5
 if [ ! -e image/crepeos.flp ]
 then
@@ -22,18 +24,18 @@ then
 fi
 
 
-echo -e "\e[1;34m[building]\e[0mAssembling bootloader"
+echo -e "[building] Assembling bootloader"
 
 nasm -O0 -w+orphan-labels -f bin -o system/osldr/osldr.bin system/osldr/osldr.asm || exit
 nasm -O0 -w+orphan-labels -f bin -o system/osldr/osclose.bin system/osldr/osclose.asm || exit
 
-echo -e "\e[1;34m[building]\e[0m Assembling kernel"
+echo -e "[building] Assembling kernel"
 
 cd system
 nasm -O0 -w+orphan-labels -f bin -o oskrnl.bin oskrnl.asm || exit
 cd ..
 
-echo -e "\e[1;34m[building]\e[0m Assembling programs"
+echo -e "[building] Assembling programs"
 
 cd program
 
@@ -43,11 +45,11 @@ do
 done
 cd ..
 
-echo -e "\e[1;34m[building]\e[0m Adding bootloader to floppy image"
+echo -e "[building] Adding bootloader to floppy image"
 
 dd status=noxfer conv=notrunc if=system/osldr/osldr.bin of=image/crepeos.flp || exit
 
-echo -e "\e[1;34m[building]\e[0m Copying files to image"
+echo -e "[building] Copying files to image"
 
 rm -rf tmp-loop
 
@@ -58,22 +60,22 @@ cp program/*.bin program/*.bas tmp-loop
 
 sleep 0.5
 
-echo -e "\e[1;34m[building]\e[0m Unmounting loopback floppy"
+echo -e "[building] Unmounting loopback floppy"
 
 umount tmp-loop || exit
 
-echo "\e[1;34m[building]\e[0m Removing any temporary files used"
+echo "[building] Removing any temporary files used"
 
 rm -rf tmp-loop
 
 sleep 0.25
 
-echo -e "\e[1;34m[building]\e[0m Creating CD-ROM ISO image"
+echo -e "[building] Creating CD-ROM ISO image"
 
 rm  image/crepeos.iso
 mkisofs -quiet -V 'CrepeOSISO' -input-charset iso8859-1 -o image/crepeos.iso -b crepeos.flp image/ || exit
 sleep 0.25
 
-echo -e '\e[1;32m [done] Starting CrepeOS now via QEMU...'
+echo -e '[done] Starting CrepeOS now via QEMU...'
 cd image
 qemu-system-x86_64 -cdrom crepeos.iso

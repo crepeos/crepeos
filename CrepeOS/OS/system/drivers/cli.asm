@@ -124,14 +124,6 @@ get_cmd:				; Main processing loop
 	mov di, list_string		; 'LS' entered?
 	call os_string_compare
 	jc dir_list
-	
-	mov di, reboot_string		; 'REBOOT' entered?
-	call os_string_compare
-	je reboot
-
-	mov di, shutdown_string		; 'REBOOT' entered?
-	call os_string_compare
-	jmp shutdown
 
 
 	; If the user hasn't entered any of the above commands, then we
@@ -1013,7 +1005,7 @@ exit:
 	bas_extension		db '.BAS', 0
 	pcx_extension		db '.PCX', 0
 
-	prompt			db 'crepe-os-live:~$ ', 0
+	prompt			db 'CREPEOS:~$ ', 0
 
 	help_text		db 'Commands: DIR, LS, COPY, REN, DEL, CAT, SIZE, CLS, HELP, TIME, DATE, VER, EXIT', 13, 10, 0
     help_text1      db 'CrepeOS Command-Line Interface (CLI) Command Help Menu', 13, 10, 0
@@ -1060,8 +1052,6 @@ exit:
 	copy_string		db 'COPY', 0
 	size_string		db 'SIZE', 0
 	list_string		db 'LS', 0
-	reboot_string 	db 'REBOOT', 0
-	shutdown_string 	db 'SHUTDOWN', 0
 
 	kern_file_string	db 'OSKRNL', 0
 	kern_warn_msg		db 'Kernel is already running! A second intance would break the OS', 13, 10, 0

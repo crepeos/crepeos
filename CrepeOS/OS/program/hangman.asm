@@ -172,7 +172,7 @@ finish:
 	call os_show_cursor
 	call os_clear_screen
 
-
+	ret
 
 
 
@@ -514,7 +514,7 @@ show_hangman:
 
 
 
-	title_msg	db '| CrepeOS Hangman |--------------------------------------| Version 0.1 Alpha |', 0
+	title_msg	db '| CrepeOS Hangman |------------------------------------| Version 0.5.3 Alpha |', 0
 	footer_msg	db '|-----------------------------|Press Esc to exit|----------------------------|', 0
 
 	hint_msg_1	db 'Short word this time, so you', 0
