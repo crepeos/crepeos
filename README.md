@@ -30,7 +30,7 @@ You may edit the source code and make a fork of this OS. The software source cod
 
 # Screenshots
 Note there will be new screenshots coming soon. 
-This is no longer the look of the latest update, however this is version 0.3 
+This is no longer the look of the latest update, however this is CrepeOS v0.3 
 and you may still download that version if you desire.
 
 ![Screenshot from 2021-08-26 20 58 42](https://user-images.githubusercontent.com/76793908/131035224-f44076b7-9d6b-4b8e-9c77-bb7e4ce4c8f6.png)
